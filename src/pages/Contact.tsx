@@ -7,6 +7,32 @@ import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import { toast } from 'sonner';
+import { z } from 'zod';
+
+const contactFormSchema = z.object({
+  name: z.string()
+    .trim()
+    .min(1, 'Meno je povinné')
+    .max(100, 'Meno môže mať maximálne 100 znakov'),
+  email: z.string()
+    .trim()
+    .min(1, 'E-mail je povinný')
+    .email('Neplatný formát e-mailovej adresy')
+    .max(255, 'E-mail môže mať maximálne 255 znakov'),
+  phone: z.string()
+    .trim()
+    .max(20, 'Telefón môže mať maximálne 20 znakov')
+    .refine((val) => !val || /^(\+421|00421|0)?[0-9]{9}$/.test(val), {
+      message: 'Neplatný formát telefónneho čísla (očakávaný formát: +421XXXXXXXXX)',
+    })
+    .transform(val => val && val.replace(/^(00421|0)/, '+421'))
+    .optional(),
+  message: z.string()
+    .trim()
+    .min(1, 'Správa je povinná')
+    .max(1000, 'Správa môže mať maximálne 1000 znakov'),
+  wantsSiteVisit: z.boolean(),
+});
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -20,22 +46,28 @@ const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name || !formData.email || !formData.message) {
-      toast.error('Prosím vyplňte všetky povinné polia');
-      return;
+    try {
+      const validatedData = contactFormSchema.parse(formData);
+      
+      // Here you would send the validated data to your backend
+      // DO NOT log sensitive user data in production
+      
+      toast.success('Ďakujeme za správu! Ozveme sa vám čoskoro.');
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        message: '',
+        wantsSiteVisit: false,
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const firstError = error.errors[0];
+        toast.error(firstError.message);
+      } else {
+        toast.error('Nastala chyba pri spracovaní formulára');
+      }
     }
-
-    // Here you would send the data to your backend
-    console.log('Contact form:', formData);
-    
-    toast.success('Ďakujeme za správu! Ozveme sa vám čoskoro.');
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      message: '',
-      wantsSiteVisit: false,
-    });
   };
 
   return (

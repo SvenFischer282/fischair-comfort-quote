@@ -8,6 +8,28 @@ import { Textarea } from '@/components/ui/textarea';
 import { X } from 'lucide-react';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
+import { z } from 'zod';
+
+const quoteFormSchema = z.object({
+  name: z.string()
+    .trim()
+    .min(1, 'Meno je povinné')
+    .max(100, 'Meno môže mať maximálne 100 znakov'),
+  phone: z.string()
+    .trim()
+    .min(1, 'Telefón je povinný')
+    .regex(/^(\+421|00421|0)?[0-9]{9}$/, 'Neplatný formát telefónneho čísla (očakávaný formát: +421XXXXXXXXX)')
+    .transform(val => val.replace(/^(00421|0)/, '+421')),
+  email: z.string()
+    .trim()
+    .min(1, 'E-mail je povinný')
+    .email('Neplatný formát e-mailovej adresy')
+    .max(255, 'E-mail môže mať maximálne 255 znakov'),
+  note: z.string()
+    .trim()
+    .max(1000, 'Poznámka môže mať maximálne 1000 znakov')
+    .optional(),
+});
 
 const Quote = () => {
   const { items, removeFromQuote, clearQuote } = useQuote();
@@ -22,21 +44,27 @@ const Quote = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name || !formData.phone || !formData.email) {
-      toast.error('Prosím vyplňte všetky povinné polia');
-      return;
+    try {
+      const validatedData = quoteFormSchema.parse(formData);
+      
+      // Here you would send the validated data to your backend
+      // DO NOT log sensitive user data in production
+      
+      toast.success('Ďakujeme! Ozveme sa vám s cenovou ponukou.');
+      clearQuote();
+      setFormData({ name: '', phone: '', email: '', note: '' });
+      
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const firstError = error.errors[0];
+        toast.error(firstError.message);
+      } else {
+        toast.error('Nastala chyba pri spracovaní formulára');
+      }
     }
-
-    // Here you would send the data to your backend
-    console.log('Quote request:', { ...formData, products: items });
-    
-    toast.success('Ďakujeme! Ozveme sa vám s cenovou ponukou.');
-    clearQuote();
-    setFormData({ name: '', phone: '', email: '', note: '' });
-    
-    setTimeout(() => {
-      navigate('/');
-    }, 2000);
   };
 
   if (items.length === 0) {
