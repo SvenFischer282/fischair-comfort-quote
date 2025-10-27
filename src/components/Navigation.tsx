@@ -81,7 +81,7 @@ const Navigation = () => {
             <Link to="/dopyt" onClick={() => setIsOpen(false)}>
               <Button variant="default" size="sm" className="w-full relative">
                 <ShoppingCart className="h-4 w-4 mr-2" />
-                Dopyt
+                Košík
                 {items.length > 0 && (
                   <span className="absolute -top-2 -right-2 bg-accent text-accent-foreground text-xs w-5 h-5 rounded-full flex items-center justify-center">
                     {items.length}
