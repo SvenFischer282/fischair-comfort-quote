@@ -1,0 +1,155 @@
+import { useState } from 'react';
+import { useQuote } from '@/contexts/QuoteContext';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { X } from 'lucide-react';
+import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
+
+const Quote = () => {
+  const { items, removeFromQuote, clearQuote } = useQuote();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    note: '',
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.name || !formData.phone || !formData.email) {
+      toast.error('Prosím vyplňte všetky povinné polia');
+      return;
+    }
+
+    // Here you would send the data to your backend
+    console.log('Quote request:', { ...formData, products: items });
+    
+    toast.success('Ďakujeme! Ozveme sa vám s cenovou ponukou.');
+    clearQuote();
+    setFormData({ name: '', phone: '', email: '', note: '' });
+    
+    setTimeout(() => {
+      navigate('/');
+    }, 2000);
+  };
+
+  if (items.length === 0) {
+    return (
+      <div className="min-h-screen pt-20 flex items-center justify-center bg-muted">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold mb-4 text-foreground">Váš zoznam dopytu je prázdny</h1>
+          <p className="text-muted-foreground mb-8">Pridajte produkty, o ktoré máte záujem</p>
+          <Button onClick={() => navigate('/produkty')}>Prejsť na produkty</Button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen pt-20 bg-muted">
+      <div className="container mx-auto px-4 py-12">
+        <h1 className="text-4xl font-bold mb-8 text-foreground">Zoznam dopytu</h1>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Products List */}
+          <div>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">Vybrané produkty</h2>
+            <div className="space-y-4">
+              {items.map(item => (
+                <Card key={item.id}>
+                  <CardContent className="p-4 flex items-center gap-4">
+                    <img 
+                      src={item.image} 
+                      alt={item.name}
+                      className="w-20 h-20 object-cover rounded"
+                    />
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-foreground">{item.name}</h3>
+                      <p className="text-sm text-muted-foreground">{item.description}</p>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => removeFromQuote(item.id)}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <div>
+            <Card>
+              <CardContent className="p-6">
+                <h2 className="text-2xl font-semibold mb-6 text-foreground">Kontaktné údaje</h2>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <Label htmlFor="name">Meno a priezvisko *</Label>
+                    <Input
+                      id="name"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="phone">Telefón *</Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="email">E-mail *</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="note">Poznámka / otázky</Label>
+                    <Textarea
+                      id="note"
+                      value={formData.note}
+                      onChange={(e) => setFormData({ ...formData, note: e.target.value })}
+                      rows={4}
+                      placeholder="Napríklad: Mám záujem o obhliadku, kedy by bola montáž..."
+                    />
+                  </div>
+
+                  <Button type="submit" className="w-full" size="lg">
+                    Odoslať dopyt
+                  </Button>
+
+                  <p className="text-sm text-muted-foreground text-center">
+                    * Povinné polia
+                  </p>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Quote;
