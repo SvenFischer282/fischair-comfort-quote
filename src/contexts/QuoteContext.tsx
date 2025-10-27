@@ -8,25 +8,34 @@ export interface Product {
   description: string;
 }
 
+export interface QuoteItem extends Product {
+  quantity: number;
+}
+
 interface QuoteContextType {
-  items: Product[];
+  items: QuoteItem[];
   addToQuote: (product: Product) => void;
   removeFromQuote: (productId: string) => void;
+  updateQuantity: (productId: string, quantity: number) => void;
   clearQuote: () => void;
 }
 
 const QuoteContext = createContext<QuoteContextType | undefined>(undefined);
 
 export const QuoteProvider = ({ children }: { children: ReactNode }) => {
-  const [items, setItems] = useState<Product[]>([]);
+  const [items, setItems] = useState<QuoteItem[]>([]);
 
   const addToQuote = (product: Product) => {
     setItems(prev => {
       const exists = prev.find(item => item.id === product.id);
       if (exists) {
-        return prev;
+        return prev.map(item =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
       }
-      return [...prev, product];
+      return [...prev, { ...product, quantity: 1 }];
     });
   };
 
@@ -34,12 +43,24 @@ export const QuoteProvider = ({ children }: { children: ReactNode }) => {
     setItems(prev => prev.filter(item => item.id !== productId));
   };
 
+  const updateQuantity = (productId: string, quantity: number) => {
+    if (quantity <= 0) {
+      removeFromQuote(productId);
+      return;
+    }
+    setItems(prev =>
+      prev.map(item =>
+        item.id === productId ? { ...item, quantity } : item
+      )
+    );
+  };
+
   const clearQuote = () => {
     setItems([]);
   };
 
   return (
-    <QuoteContext.Provider value={{ items, addToQuote, removeFromQuote, clearQuote }}>
+    <QuoteContext.Provider value={{ items, addToQuote, removeFromQuote, updateQuantity, clearQuote }}>
       {children}
     </QuoteContext.Provider>
   );
