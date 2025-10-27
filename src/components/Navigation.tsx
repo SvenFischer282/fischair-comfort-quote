@@ -1,9 +1,9 @@
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ShoppingCart } from 'lucide-react';
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { useQuote } from '@/contexts/QuoteContext';
-import logo from '@/assets/logo.jpeg';
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X, ShoppingCart } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { useQuote } from "@/contexts/QuoteContext";
+import logo from "@/assets/logo.jpeg";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,11 +11,11 @@ const Navigation = () => {
   const { items } = useQuote();
 
   const navLinks = [
-    { path: '/', label: 'Domov' },
-    { path: '/produkty', label: 'Produkty' },
-    { path: '/stavebne-prace', label: 'Stavebné práce' },
-    { path: '/o-nas', label: 'O nás' },
-    { path: '/kontakt', label: 'Kontakt' },
+    { path: "/", label: "Domov" },
+    { path: "/produkty", label: "Produkty" },
+    { path: "/stavebne-prace", label: "Stavebné práce" },
+    { path: "/o-nas", label: "O nás" },
+    { path: "/kontakt", label: "Kontakt" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -30,12 +30,12 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map(link => (
+            {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
                 className={`text-sm font-medium transition-colors hover:text-primary ${
-                  isActive(link.path) ? 'text-primary' : 'text-foreground/80'
+                  isActive(link.path) ? "text-primary" : "text-foreground/80"
                 }`}
               >
                 {link.label}
@@ -44,7 +44,7 @@ const Navigation = () => {
             <Link to="/dopyt">
               <Button variant="default" size="sm" className="relative">
                 <ShoppingCart className="h-4 w-4 mr-2" />
-                Dopyt
+                Košík
                 {items.length > 0 && (
                   <span className="absolute -top-2 -right-2 bg-accent text-accent-foreground text-xs w-5 h-5 rounded-full flex items-center justify-center">
                     {items.length}
@@ -66,13 +66,13 @@ const Navigation = () => {
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="md:hidden py-4 space-y-4 border-t border-border">
-            {navLinks.map(link => (
+            {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
                 className={`block py-2 text-sm font-medium transition-colors ${
-                  isActive(link.path) ? 'text-primary' : 'text-foreground/80'
+                  isActive(link.path) ? "text-primary" : "text-foreground/80"
                 }`}
               >
                 {link.label}
