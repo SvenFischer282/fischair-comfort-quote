@@ -16,12 +16,12 @@ const Home = () => {
       <Hero />
 
       {/* Categories Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground">
+      <section className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 text-foreground">
             Naše riešenia
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             <CategoryCard
               title="Tepelné čerpadlá"
               description="Moderné a ekologické vykurovanie s minimálnymi prevádkovými nákladmi"
@@ -45,41 +45,41 @@ const Home = () => {
       </section>
 
       {/* Why FISCHAIR Section */}
-      <section className="py-20 bg-muted">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground">
+      <section className="py-12 sm:py-16 md:py-20 bg-muted">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 text-foreground">
             Prečo FISCHAIR
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             <Card>
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="h-8 w-8 text-primary" />
+              <CardContent className="p-6 sm:p-8 text-center">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <CheckCircle className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-foreground">Skúsenosti</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Skúsenosti</h3>
+                <p className="text-sm sm:text-base text-muted-foreground">
                   Viac ako 15 rokov skúseností v oblasti vykurovacích a klimatizačných systémov
                 </p>
               </CardContent>
             </Card>
             <Card>
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Award className="h-8 w-8 text-primary" />
+              <CardContent className="p-6 sm:p-8 text-center">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <Award className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-foreground">Kvalita</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Kvalita</h3>
+                <p className="text-sm sm:text-base text-muted-foreground">
                   Používame len prémiové značky a komponenty s dlhou životnosťou
                 </p>
               </CardContent>
             </Card>
             <Card>
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="h-8 w-8 text-primary" />
+              <CardContent className="p-6 sm:p-8 text-center">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <Users className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-foreground">Spokojnosť</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Spokojnosť</h3>
+                <p className="text-sm sm:text-base text-muted-foreground">
                   Stovky spokojných zákazníkov a komplexný servis po celej SR
                 </p>
               </CardContent>
@@ -89,35 +89,35 @@ const Home = () => {
       </section>
 
       {/* References Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground">
+      <section className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 text-foreground">
             Naše referencie
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
             <div className="overflow-hidden rounded-lg shadow-lg">
-              <img src={reference1} alt="Referencia 1" className="w-full h-80 object-cover" />
+              <img src={reference1} alt="Referencia 1" className="w-full h-60 sm:h-80 object-cover" />
             </div>
             <div className="overflow-hidden rounded-lg shadow-lg">
-              <img src={reference2} alt="Referencia 2" className="w-full h-80 object-cover" />
+              <img src={reference2} alt="Referencia 2" className="w-full h-60 sm:h-80 object-cover" />
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+      <section className="py-12 sm:py-16 md:py-20 bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
             Zanechajte kontakt – ozveme sa vám do 24 hodín
           </h2>
-          <p className="text-xl mb-8 opacity-90">
+          <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 opacity-90">
             Nezáväzná konzultácia a cenová ponuka na mieru
           </p>
           <Link to="/kontakt">
-            <Button size="lg" variant="secondary" className="text-lg">
+            <Button size="lg" variant="secondary" className="text-base sm:text-lg w-full sm:w-auto">
               Kontaktovať nás
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
           </Link>
         </div>

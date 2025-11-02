@@ -33,27 +33,27 @@ const ProductCard = ({ product }: ProductCardProps) => {
           </div>
         </div>
       </Link>
-      <CardContent className="p-6">
+      <CardContent className="p-4 sm:p-6">
         <Link to={`/produkt/${product.id}`}>
-          <h3 className="text-xl font-semibold mb-2 text-foreground hover:text-primary transition-colors">
+          <h3 className="text-lg sm:text-xl font-semibold mb-2 text-foreground hover:text-primary transition-colors">
             {product.name}
           </h3>
         </Link>
-        <p className="text-sm text-muted-foreground mb-4">{product.description}</p>
+        <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 line-clamp-2">{product.description}</p>
       </CardContent>
-      <CardFooter className="p-6 pt-0 gap-2">
-        <Link to={`/produkt/${product.id}`} className="flex-1">
+      <CardFooter className="p-4 sm:p-6 pt-0 flex-col sm:flex-row gap-2">
+        <Link to={`/produkt/${product.id}`} className="w-full sm:flex-1">
           <Button variant="outline" className="w-full">
             Detail
           </Button>
         </Link>
         {isInQuote ? (
-          <Button variant="secondary" className="flex-1" disabled>
+          <Button variant="secondary" className="w-full sm:flex-1" disabled>
             <Check className="mr-2 h-4 w-4" />
             V dopytu
           </Button>
         ) : (
-          <Button variant="default" className="flex-1" onClick={handleAddToQuote}>
+          <Button variant="default" className="w-full sm:flex-1" onClick={handleAddToQuote}>
             <Plus className="mr-2 h-4 w-4" />
             Pridať
           </Button>

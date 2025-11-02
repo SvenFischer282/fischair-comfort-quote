@@ -72,46 +72,46 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen pt-20 bg-muted">
-      <div className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-center mb-6 text-foreground">
+      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 sm:mb-6 text-foreground">
           Kontakt
         </h1>
-        <p className="text-xl text-center text-muted-foreground mb-16 max-w-2xl mx-auto">
+        <p className="text-base sm:text-lg md:text-xl text-center text-muted-foreground mb-10 sm:mb-16 max-w-2xl mx-auto">
           Máte otázky alebo záujem o našu ponuku? Neváhajte nás kontaktovať
         </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
           {/* Contact Info */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             <Card>
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Phone className="h-6 w-6 text-primary" />
+              <CardContent className="p-4 sm:p-6">
+                <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-2 text-foreground">Telefón</h3>
-                    <p className="text-muted-foreground">+421 XXX XXX XXX</p>
+                    <h3 className="text-sm sm:text-base font-semibold mb-1 sm:mb-2 text-foreground">Telefón</h3>
+                    <p className="text-sm sm:text-base text-muted-foreground">+421 XXX XXX XXX</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Mail className="h-6 w-6 text-primary" />
+                <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-2 text-foreground">E-mail</h3>
-                    <p className="text-muted-foreground">info@fischair.sk</p>
+                    <h3 className="text-sm sm:text-base font-semibold mb-1 sm:mb-2 text-foreground">E-mail</h3>
+                    <p className="text-sm sm:text-base text-muted-foreground">info@fischair.sk</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <MapPin className="h-6 w-6 text-primary" />
+                <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-2 text-foreground">Adresa</h3>
-                    <p className="text-muted-foreground">
+                    <h3 className="text-sm sm:text-base font-semibold mb-1 sm:mb-2 text-foreground">Adresa</h3>
+                    <p className="text-sm sm:text-base text-muted-foreground">
                       Ulica 123<br />
                       012 34 Mesto<br />
                       Slovensko
@@ -119,13 +119,13 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Clock className="h-6 w-6 text-primary" />
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-2 text-foreground">Otváracie hodiny</h3>
-                    <p className="text-muted-foreground">
+                    <h3 className="text-sm sm:text-base font-semibold mb-1 sm:mb-2 text-foreground">Otváracie hodiny</h3>
+                    <p className="text-sm sm:text-base text-muted-foreground">
                       Po - Pia: 8:00 - 17:00<br />
                       So - Ne: Zatvorené
                     </p>
@@ -135,10 +135,10 @@ const Contact = () => {
             </Card>
 
             {/* Map placeholder */}
-            <Card>
-              <CardContent className="p-6">
+            <Card className="hidden sm:block">
+              <CardContent className="p-4 sm:p-6">
                 <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
-                  <p className="text-muted-foreground">Mapa</p>
+                  <p className="text-sm sm:text-base text-muted-foreground">Mapa</p>
                 </div>
               </CardContent>
             </Card>
@@ -146,8 +146,8 @@ const Contact = () => {
 
           {/* Contact Form */}
           <Card>
-            <CardContent className="p-6">
-              <h2 className="text-2xl font-semibold mb-6 text-foreground">Kontaktný formulár</h2>
+            <CardContent className="p-4 sm:p-6">
+              <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-foreground">Kontaktný formulár</h2>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <Label htmlFor="name">Meno a priezvisko *</Label>
