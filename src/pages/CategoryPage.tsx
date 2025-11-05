@@ -1,34 +1,49 @@
 import { useParams, Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import ProductCard from '@/components/ProductCard';
-import { getProductsByCategory } from '@/data/products';
+import { getProductsByCategory } from '@/lib/supabase/queries';
+import { CATEGORY_MAP, Product, ProductType } from '@/types/database';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const categories = {
   'tepelne-cerpadla': {
     title: 'Tepelné čerpadlá',
     description: 'Moderné tepelné čerpadlá pre efektívne vykurovanie vášho domu',
-    category: 'heat-pumps',
   },
   'klimatizacie': {
     title: 'Klimatizácie',
     description: 'Klimatizačné jednotky pre dokonalý komfort v každom ročnom období',
-    category: 'air-conditioning',
   },
   'rekuperacie': {
     title: 'Rekuperácie',
     description: 'Rekuperačné systémy pre zdravé vnútorné prostredie',
-    category: 'recuperation',
   },
 };
 
 const CategoryPage = () => {
   const { category } = useParams<{ category: string }>();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
 
   if (!category || !categories[category as keyof typeof categories]) {
     return <Navigate to="/produkty" replace />;
   }
 
   const categoryData = categories[category as keyof typeof categories];
-  const products = getProductsByCategory(categoryData.category);
+  const productType = CATEGORY_MAP[category];
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      const data = await getProductsByCategory(productType);
+      if (data) {
+        setProducts(data);
+      }
+      setLoading(false);
+    };
+
+    fetchProducts();
+  }, [productType]);
 
   return (
     <div className="min-h-screen pt-20">
@@ -41,11 +56,33 @@ const CategoryPage = () => {
             {categoryData.description}
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {products.map(product => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          {loading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="space-y-4">
+                  <Skeleton className="h-56 w-full" />
+                  <Skeleton className="h-4 w-3/4" />
+                  <Skeleton className="h-4 w-1/2" />
+                </div>
+              ))}
+            </div>
+          ) : products.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              {products.map(product => (
+                <ProductCard 
+                  key={product.produkt_id} 
+                  product={product} 
+                  productType={productType}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-lg text-muted-foreground">
+                Momentálne nemáme žiadne produkty v tejto kategórii.
+              </p>
+            </div>
+          )}
         </div>
       </section>
     </div>

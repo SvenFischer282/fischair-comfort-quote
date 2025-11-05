@@ -10,30 +10,10 @@ import recuperationImg from "@/assets/recuperation.jpg";
 import reference1 from "@/assets/reference-1.jpg";
 import reference2 from "@/assets/reference-2.jpg";
 
-import { useEffect, useState } from "react";
-import getProducts from "../lib/supabase/getProducts";
-
 const Home = () => {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const data = await getProducts("test");
-      if (data) {
-        setProducts(data);
-      }
-    };
-    fetchProducts();
-  }, []);
-
   return (
     <div>
       <Hero />
-
-      {products.map((e) => (
-        <h1 className="text-3xl text-red-600" key={e.id}>
-          {e.name}
-        </h1>
-      ))}
 
       {/* Categories Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">
