@@ -1,12 +1,15 @@
-import { supabase } from "./supabaseClient";
+import { supabase } from "@/integrations/supabase/client";
 
-async function getProducts(where: string) {
-  const { data, error } = await supabase.from(where).select("*");
+type AllowedTable = 'test' | 'tepelnecerpadla' | 'klimatizacie' | 'rekuperacie' | 'kategoria';
+
+async function getProducts(tableName: AllowedTable) {
+  const { data, error } = await supabase.from(tableName).select("*");
   if (error) {
-    console.error("Error fetching data:", error);
-  } else {
-    return data;
-    console.log("Fetched data:", data);
+    if (import.meta.env.DEV) {
+      console.error("Error fetching data:", error);
+    }
+    return null;
   }
+  return data;
 }
 export default getProducts;

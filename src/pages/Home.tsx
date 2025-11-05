@@ -11,7 +11,6 @@ import reference1 from "@/assets/reference-1.jpg";
 import reference2 from "@/assets/reference-2.jpg";
 
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabase/supabaseClient";
 import getProducts from "../lib/supabase/getProducts";
 
 const Home = () => {
