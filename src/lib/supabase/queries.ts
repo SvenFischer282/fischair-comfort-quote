@@ -1,11 +1,17 @@
 import { supabase } from "@/integrations/supabase/client";
 import { Rekuperacie, Klimatizacie, TepelneCerpadla, ProductType, Kategoria } from "@/types/database";
 
-export async function getProductsByCategory(table: ProductType) {
-  const { data, error } = await supabase
+export async function getProductsByCategory(table: ProductType, kategoria_id?: number) {
+  let query = supabase
     .from(table)
     .select("*")
     .order('nazov', { ascending: true });
+
+  if (kategoria_id) {
+    query = query.eq('kategoria_id', kategoria_id);
+  }
+
+  const { data, error } = await query;
 
   if (error) {
     if (import.meta.env.DEV) {
@@ -63,3 +69,4 @@ export async function getCategories() {
 
   return data as Kategoria[];
 }
+
