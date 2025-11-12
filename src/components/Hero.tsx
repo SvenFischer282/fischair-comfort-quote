@@ -5,7 +5,7 @@ import heroImage from "@/assets/hero-home.jpg";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-[80vh] sm:min-h-[90vh] flex items-center">
+    <section className="relative min-h-[95vh] sm:min-h-[95vh] flex items-center">
       <div
         className="absolute inset-0 z-0"
         style={{
